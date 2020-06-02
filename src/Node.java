@@ -8,6 +8,7 @@ public class Node {
         this.esquerda = null;
         this.direita = null;
     }
+
     public void setInfo(int info){
         this.info = info;
     }
@@ -27,4 +28,5 @@ public class Node {
     public Node getDireita() {
         return direita;
     }
+
 }

@@ -7,7 +7,7 @@ public class ArvoreBinaria {
     public boolean vazia(){
         return (this.raiz == null);
     }
-    public void insereInfo(int info){
+    public ArvoreBinaria insereInfo(int info){
         Node novo = new Node(info);
         if (vazia()) this.raiz = novo;
         else{
@@ -15,25 +15,28 @@ public class ArvoreBinaria {
             if(novo.getInfo() < this.raiz.getInfo()){
                 if(this.raiz.getEsquerda() == null) {
                     this.raiz.setEsquerda(novo);
-                    System.out.println("Inserido o elemento " + novo.getInfo() + " Na esquerda de " + this.raiz.getInfo());
+
                 }
                 else{
                     arv.raiz = this.raiz.getEsquerda();
                     arv.insereInfo(info);
+                    arv.balanceamento();
+                    this.raiz.setEsquerda(arv.raiz);
                 }
             }
 
             else if(novo.getInfo() > this.raiz.getInfo()){
                 if (this.raiz.getDireita() == null) {
                     this.raiz.setDireita(novo);
-                    System.out.println("Inserido o elemento " + novo.getInfo() + " Na direita de " + this.raiz.getInfo());
-
                 }
                 else{
                     arv.raiz = this.raiz.getDireita();
                     arv.insereInfo(info);
+                    arv.balanceamento();
+                    this.raiz.setDireita(arv.raiz);
                 }
             }}
+        return this;
     }
     public void preOrdem(Node node){
         if(node != null){
@@ -119,6 +122,7 @@ public class ArvoreBinaria {
                 aux.removeInfoMaior();
                 this.raiz.setEsquerda(aux.raiz);
             }
+            return this.raiz;
         }
         else if(this.raiz.getInfo() > info){
             arv.raiz = this.raiz.getEsquerda();
@@ -134,6 +138,69 @@ public class ArvoreBinaria {
             System.out.println("Arvore sem elementos");
         }
         return null;
+    }
+    public int altura(Node no) {
+        if (no == null) return -1;
+        int esquerda = altura(no.getEsquerda());
+        int direita = altura(no.getDireita());
+        if (esquerda > direita) return 1 + esquerda;
+        return 1 + direita;
+    }
+    public Node buscar(int elemento){
+        Node atual = raiz;
+        while (atual != null && atual.getInfo() != elemento)
+        {
+            if (atual.getInfo() > elemento) atual = atual.getEsquerda();
+            else atual = atual.getDireita();
+        }
+        if (atual == null)
+        {
+            System.out.println("Elemento " + elemento + " não encontrado");
+            return null;
+        }
+        return atual;
+    }
+    public int calculaBalanceamento(Node no){
+        if (no == null) return 0;
+        return altura(no.getEsquerda()) - altura(no.getDireita());
+    }
+    public void balanceamento(){
+        ArvoreBinaria arv = new ArvoreBinaria();
+        if (this.calculaBalanceamento(this.raiz) >= 2 || this.calculaBalanceamento(this.raiz) <= -2){
+            if (this.calculaBalanceamento(this.raiz)>= 2){
+                if (this.calculaBalanceamento(this.raiz) * this.calculaBalanceamento(this.raiz.getEsquerda()) > 0){//se for positivo vai tratar balanceamento pela direita
+                    this.raiz = this.rotacaoDireita();//Rotação simples a direita
+                }
+                /*else{
+                    arv.raiz = this.raiz.getEsquerda();
+
+
+                }*/
+            }
+            else{ //(this.calculaBalanceamento(this.raiz) <= -2)
+                if (this.calculaBalanceamento(this.raiz) * this.calculaBalanceamento(this.raiz.getDireita()) > 0){
+                    this.raiz = this.rotacaoEsquerda();
+                }
+                /*else{
+
+                }*/
+            }
+        }
+        else if (vazia())return;
+    }
+    public Node rotacaoDireita(){
+        Node novaRaiz = raiz.getEsquerda();
+        Node temp = novaRaiz.getDireita();
+        novaRaiz.setDireita(raiz);
+        raiz.setEsquerda(temp);
+        return novaRaiz;
+    }
+    public Node rotacaoEsquerda(){
+        Node novaRaiz = raiz.getDireita();
+        Node temp = novaRaiz.getEsquerda();
+        novaRaiz.setEsquerda(raiz);
+        raiz.setDireita(temp);
+        return novaRaiz;
     }
     public void imprime(int status){
         if (status == 0) {
