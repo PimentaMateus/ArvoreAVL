@@ -137,6 +137,7 @@ public class ArvoreBinaria {
         else if(vazia()){
             System.out.println("Arvore sem elementos");
         }
+        this.balanceamento();
         return null;
     }
     public int altura(Node no) {
