@@ -3,15 +3,15 @@ public class Main {
     public static void main(String[] args) {
         ArvoreBinaria arvoreBinaria = new ArvoreBinaria();
 
-        arvoreBinaria = arvoreBinaria.insereInfo(10);
-        arvoreBinaria = arvoreBinaria.insereInfo(5);
-        arvoreBinaria = arvoreBinaria.insereInfo(8);
-        arvoreBinaria = arvoreBinaria.insereInfo(1);
-        arvoreBinaria = arvoreBinaria.insereInfo(12);
-        arvoreBinaria.removeInfo(10);
+        arvoreBinaria.insereInfo(30);
+        arvoreBinaria.insereInfo(15);
+        arvoreBinaria.insereInfo(40);
+        arvoreBinaria.insereInfo(20);
+        arvoreBinaria.insereInfo(10);
+        arvoreBinaria.insereInfo(35);
+        //arvoreBinaria.removeInfo(8);
+        //arvoreBinaria.buscar(10);
         arvoreBinaria.imprime(0);
-        arvoreBinaria.imprime(1);
-        arvoreBinaria.imprime(2);
 
 
     }

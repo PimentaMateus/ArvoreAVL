@@ -7,7 +7,7 @@ public class ArvoreBinaria {
     public boolean vazia(){
         return (this.raiz == null);
     }
-    public ArvoreBinaria insereInfo(int info){
+    public void insereInfo(int info){
         Node novo = new Node(info);
         if (vazia()) this.raiz = novo;
         else{
@@ -36,7 +36,7 @@ public class ArvoreBinaria {
                     this.raiz.setDireita(arv.raiz);
                 }
             }}
-        return this;
+        this.balanceamento();
     }
     public void preOrdem(Node node){
         if(node != null){
@@ -172,19 +172,20 @@ public class ArvoreBinaria {
                 if (this.calculaBalanceamento(this.raiz) * this.calculaBalanceamento(this.raiz.getEsquerda()) > 0){//se for positivo vai tratar balanceamento pela direita
                     this.raiz = this.rotacaoDireita();//Rotação simples a direita
                 }
-                /*else{
+                else{
                     arv.raiz = this.raiz.getEsquerda();
+                    this.raiz.setEsquerda(arv.rotacaoEsquerda());
 
-
-                }*/
+                }
             }
             else{ //(this.calculaBalanceamento(this.raiz) <= -2)
                 if (this.calculaBalanceamento(this.raiz) * this.calculaBalanceamento(this.raiz.getDireita()) > 0){
                     this.raiz = this.rotacaoEsquerda();
                 }
-                /*else{
-
-                }*/
+                else{
+                    arv.raiz = this.raiz.getDireita();
+                    this.raiz.setDireita(arv.rotacaoDireita());
+                }
             }
         }
         else if (vazia())return;
