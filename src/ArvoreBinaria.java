@@ -170,7 +170,7 @@ public class ArvoreBinaria {
         if (this.calculaBalanceamento(this.raiz) >= 2 || this.calculaBalanceamento(this.raiz) <= -2){
             if (this.calculaBalanceamento(this.raiz)>= 2){
                 if (this.calculaBalanceamento(this.raiz) * this.calculaBalanceamento(this.raiz.getEsquerda()) > 0){//se for positivo vai tratar balanceamento pela direita
-                    this.raiz = this.rotacaoDireita();//Rotação simples a direita
+                    this.raiz = this.rotacaoDireita();//Rotação  a direita
                 }
                 else{
                     arv.raiz = this.raiz.getEsquerda();
